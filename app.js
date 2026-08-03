@@ -606,6 +606,74 @@ function renderChart(filteredSessions) {
   });
 }
 
+// Export JSON Backup
+function exportDataJSON() {
+  if (sessions.length === 0) {
+    alert('Não há baterias gravadas para exportar.');
+    return;
+  }
+  const dataPayload = {
+    version: 1,
+    exportDate: new Date().toISOString(),
+    sessions: sessions,
+    recentSubjects: recentSubjects
+  };
+  const jsonStr = JSON.stringify(dataPayload, null, 2);
+  const blob = new Blob([jsonStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `estudoq_backup_${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// Import JSON Backup
+function importDataJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      let importedCount = 0;
+
+      if (Array.isArray(data)) {
+        data.forEach(s => {
+          if (s.id && !sessions.some(existing => existing.id === s.id)) {
+            sessions.push(s);
+            importedCount++;
+          }
+        });
+      } else if (data.sessions && Array.isArray(data.sessions)) {
+        data.sessions.forEach(s => {
+          if (s.id && !sessions.some(existing => existing.id === s.id)) {
+            sessions.push(s);
+            importedCount++;
+          }
+        });
+        if (data.recentSubjects && Array.isArray(data.recentSubjects)) {
+          data.recentSubjects.forEach(sub => addRecentSubject(sub));
+        }
+      }
+
+      sessions.sort((a, b) => b.timestamp - a.timestamp);
+      saveStorageData();
+      updateHistoryView();
+
+      alert(`Backup restaurado com sucesso! ${importedCount} novas baterias foram importadas.`);
+    } catch (err) {
+      alert('Erro ao ler o arquivo de backup. Certifique-se de escolher um arquivo .json válido.');
+      console.error(err);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
 // Export CSV Data
 function exportDataCSV() {
   if (sessions.length === 0) {

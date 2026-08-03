@@ -1,10 +1,11 @@
-const CACHE_NAME = 'estudoq-v3';
+const CACHE_NAME = 'estudoq-v4';
 const ASSETS = [
   './',
   './index.html',
   './style.css',
   './app.js',
   './manifest.json',
+  './favicon.svg',
   'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap',
   'https://cdn.jsdelivr.net/npm/chart.js'
 ];

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'estudoq-v2';
+const CACHE_NAME = 'estudoq-v3';
 const ASSETS = [
   './',
   './index.html',
@@ -30,8 +30,18 @@ self.addEventListener('activate', (e) => {
   );
 });
 
+// Network First strategy so updates take effect immediately
 self.addEventListener('fetch', (e) => {
   e.respondWith(
-    caches.match(e.request).then((response) => response || fetch(e.request))
+    fetch(e.request)
+      .then((response) => {
+        // Clone and store updated response in cache
+        if (response && response.status === 200 && response.type === 'basic') {
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(e.request, responseToCache));
+        }
+        return response;
+      })
+      .catch(() => caches.match(e.request))
   );
 });

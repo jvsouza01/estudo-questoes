@@ -1061,3 +1061,124 @@ body {
 .hidden {
   display: none !important;
 }
+
+/* ==========================================================================
+   Mini Floating Widget / Document Picture-in-Picture (PiP) Styles
+   ========================================================================== */
+
+body.pip-body {
+  padding: 10px;
+  background: #0b0f19;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.pip-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.pip-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: rgba(21, 30, 49, 0.85);
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.pip-subject {
+  font-size: 0.7rem;
+  color: var(--primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pip-topic {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pip-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  text-align: center;
+}
+
+.pip-metric-box {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--border-color);
+  padding: 6px 4px;
+  border-radius: 8px;
+}
+
+.pip-metric-label {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  display: block;
+}
+
+.pip-metric-val {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.pip-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  min-height: 100px;
+}
+
+.pip-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 12px 6px;
+  user-select: none;
+  transition: transform 0.1s ease;
+}
+
+.pip-btn:active {
+  transform: scale(0.94);
+}
+
+.pip-btn-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.pip-btn-shortcut {
+  font-size: 0.68rem;
+  opacity: 0.85;
+  margin-top: 2px;
+}
+
+.pip-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+

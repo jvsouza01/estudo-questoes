@@ -165,6 +165,9 @@ function undoLastAnswer() {
   updateLiveMetricsUI();
 }
 
+// Global reference to PiP Window
+let pipWindowInstance = null;
+
 // Update Real-Time Metrics UI
 function updateLiveMetricsUI() {
   if (!activeSession) return;
@@ -196,6 +199,150 @@ function updateLiveMetricsUI() {
   if (undoBtn) {
     undoBtn.disabled = activeSession.history.length === 0;
   }
+
+  // Sync with PiP Floating Window if open
+  if (pipWindowInstance && !pipWindowInstance.closed) {
+    const doc = pipWindowInstance.document;
+    if (doc.getElementById('pip-val-total')) {
+      doc.getElementById('pip-val-total').textContent = total;
+      doc.getElementById('pip-val-correct').textContent = correct;
+      doc.getElementById('pip-val-wrong').textContent = wrong;
+      doc.getElementById('pip-val-acc').textContent = `${accuracyRate}%`;
+      const pipUndo = doc.getElementById('pip-btn-undo');
+      if (pipUndo) pipUndo.disabled = activeSession.history.length === 0;
+    }
+  }
+}
+
+// Toggle Floating Widget (Document Picture-in-Picture / Popout Window)
+async function toggleFloatingWidget() {
+  if (!activeSession) {
+    alert('Inicie uma bateria de questões primeiro.');
+    return;
+  }
+
+  // Check if browser supports Document Picture-in-Picture (Chrome / Edge)
+  if ('documentPictureInPicture' in window) {
+    if (pipWindowInstance) {
+      pipWindowInstance.close();
+      pipWindowInstance = null;
+      return;
+    }
+
+    try {
+      pipWindowInstance = await documentPictureInPicture.requestWindow({
+        width: 330,
+        height: 380
+      });
+
+      // Copy styles to PiP window
+      [...document.querySelectorAll('link[rel="stylesheet"], style')].forEach((styleNode) => {
+        pipWindowInstance.document.head.appendChild(styleNode.cloneNode(true));
+      });
+
+      const total = activeSession.correct + activeSession.wrong;
+      const accuracyRate = total > 0 ? Math.round((activeSession.correct / total) * 100) : 0;
+
+      // Set PiP HTML
+      pipWindowInstance.document.body.classList.add('pip-body');
+      pipWindowInstance.document.body.innerHTML = `
+        <div class="pip-container">
+          <div class="pip-header">
+            <span class="pip-subject" id="pip-subject">${escapeHtml(activeSession.subject)}</span>
+            <div class="pip-topic" id="pip-topic">${escapeHtml(activeSession.topic)}</div>
+          </div>
+
+          <div class="pip-metrics">
+            <div class="pip-metric-box">
+              <span class="pip-metric-label">TOTAL</span>
+              <span id="pip-val-total" class="pip-metric-val">${total}</span>
+            </div>
+            <div class="pip-metric-box">
+              <span class="pip-metric-label">CERTO</span>
+              <span id="pip-val-correct" class="pip-metric-val text-success">${activeSession.correct}</span>
+            </div>
+            <div class="pip-metric-box">
+              <span class="pip-metric-label">ERRO</span>
+              <span id="pip-val-wrong" class="pip-metric-val text-danger">${activeSession.wrong}</span>
+            </div>
+            <div class="pip-metric-box">
+              <span class="pip-metric-label">% APRA</span>
+              <span id="pip-val-acc" class="pip-metric-val text-accent">${accuracyRate}%</span>
+            </div>
+          </div>
+
+          <div class="pip-buttons">
+            <button id="pip-btn-correct" class="pip-btn btn-success-glow">
+              <span class="pip-btn-title">ACERTO</span>
+              <span class="pip-btn-shortcut">[ Tecla A / ➔ ]</span>
+            </button>
+            <button id="pip-btn-wrong" class="pip-btn btn-danger-glow">
+              <span class="pip-btn-title">ERRO</span>
+              <span class="pip-btn-shortcut">[ Tecla E / ⬅ ]</span>
+            </button>
+          </div>
+
+          <div class="pip-footer">
+            <button id="pip-btn-undo" class="btn btn-secondary btn-sm" style="flex:1;" ${activeSession.history.length === 0 ? 'disabled' : ''}>
+              <span>Desfazer (Ctrl+Z)</span>
+            </button>
+            <button id="pip-btn-finish" class="btn btn-primary btn-sm" style="flex:1;">
+              <span>Encerrar</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Handlers inside PiP window
+      const doc = pipWindowInstance.document;
+
+      doc.getElementById('pip-btn-correct').addEventListener('click', () => recordAnswer(true));
+      doc.getElementById('pip-btn-wrong').addEventListener('click', () => recordAnswer(false));
+      doc.getElementById('pip-btn-undo').addEventListener('click', () => undoLastAnswer());
+      doc.getElementById('pip-btn-finish').addEventListener('click', () => {
+        finishSession();
+        if (pipWindowInstance) {
+          pipWindowInstance.close();
+          pipWindowInstance = null;
+        }
+      });
+
+      // Keyboard shortcuts inside PiP window
+      doc.addEventListener('keydown', (e) => {
+        const key = e.key.toLowerCase();
+        if (key === 'a' || e.key === 'ArrowRight') {
+          e.preventDefault();
+          recordAnswer(true);
+        } else if (key === 'e' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          recordAnswer(false);
+        } else if (key === 'z' || (e.ctrlKey && key === 'z')) {
+          e.preventDefault();
+          undoLastAnswer();
+        }
+      });
+
+      // On PiP window closed
+      pipWindowInstance.addEventListener('pagehide', () => {
+        pipWindowInstance = null;
+      });
+
+    } catch (err) {
+      console.error('Erro ao abrir Picture-in-Picture:', err);
+      openPopoutWindow();
+    }
+  } else {
+    // Fallback: Open popout window
+    openPopoutWindow();
+  }
+}
+
+function openPopoutWindow() {
+  window.open(
+    window.location.href,
+    'EstudoQMini',
+    'width=350,height=480,resizable=yes,scrollbars=no,status=no'
+  );
 }
 
 // Cancel Session Confirmation

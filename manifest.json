@@ -1,19 +1,19 @@
 {
-  "name": "EstudoQ - Controle de Questões",
-  "short_name": "EstudoQ",
-  "description": "Controle inteligente de baterias de questões com estatísticas e histórico por dia, semana e mês.",
+  "name": "Trajetória Questões - Alta Performance",
+  "short_name": "Trajetória",
+  "description": "Infraestrutura tecnológica para controle e análise de baterias de questões de alto rendimento.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0b0f19",
-  "theme_color": "#38bdf8",
+  "background_color": "#09090b",
+  "theme_color": "#00e575",
   "icons": [
     {
-      "src": "icon.png",
+      "src": "android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon.png",
+      "src": "android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

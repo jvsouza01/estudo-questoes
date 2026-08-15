@@ -740,14 +740,14 @@ function renderChart(filteredSessions) {
         {
           label: 'Acertos',
           data: correctData,
-          backgroundColor: 'rgba(16, 185, 129, 0.75)',
+          backgroundColor: 'rgba(0, 229, 117, 0.85)',
           borderRadius: 6,
         },
         {
           label: 'Total Feito',
           data: totalData,
-          backgroundColor: 'rgba(56, 189, 248, 0.3)',
-          borderColor: 'rgba(56, 189, 248, 0.8)',
+          backgroundColor: 'rgba(255, 255, 255, 0.12)',
+          borderColor: 'rgba(255, 255, 255, 0.25)',
           borderWidth: 1,
           borderRadius: 6,
         }

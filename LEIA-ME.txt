@@ -1,0 +1,74 @@
+FAVICON E IMAGEM DE LINK - TRAJETÓRIA
+========================================
+
+O QUE MUDOU
+------------
+O ícone (bandeirinha) agora tem um fundo preto sólido "grudado" nele.
+Antes o fundo era transparente, então em qualquer lugar com fundo
+branco/claro (WhatsApp, Slack, navegador em modo claro) a parte branca
+do ícone sumia. Agora ele sempre aparece certinho, em qualquer lugar.
+
+ARQUIVOS
+--------
+favicon.ico                  -> favicon clássico (16/32/48px), vai na raiz
+favicon-16x16.png            -> favicon pequeno
+favicon-32x32.png            -> favicon padrão
+favicon-48x48.png            -> favicon versão maior
+apple-touch-icon.png (180px) -> ícone quando salvam o site na tela do iPhone
+android-chrome-192x192.png   -> ícone Android (PWA)
+android-chrome-512x512.png   -> ícone Android em alta resolução (PWA)
+site.webmanifest             -> arquivo de configuração do PWA (Android)
+og-image.png (1200x630)      -> imagem que aparece no PREVIEW DE LINK
+                                 (WhatsApp, Instagram, Slack, Twitter/X etc)
+icon_master_black.png        -> arquivo "mestre" em alta resolução, guardem
+                                 esse caso precisem gerar mais tamanhos no futuro
+
+ONDE COLAR (projeto Next.js com App Router)
+--------------------------------------------
+1. Copiem estes arquivos para dentro da pasta /public do projeto:
+   - favicon.ico
+   - favicon-16x16.png
+   - favicon-32x32.png
+   - apple-touch-icon.png
+   - android-chrome-192x192.png
+   - android-chrome-512x512.png
+   - site.webmanifest
+   - og-image.png
+
+2. No arquivo app/layout.tsx, dentro do objeto "metadata", adicionem:
+
+export const metadata = {
+  title: "Trajetória",
+  icons: {
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon.ico",
+  },
+  manifest: "/site.webmanifest",
+  openGraph: {
+    title: "Trajetória",
+    description: "COLOQUEM AQUI A DESCRIÇÃO DO PRODUTO",
+    url: "https://trajetoria.app.br",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-image.png"],
+  },
+};
+
+3. Depois do deploy, testem o preview de link em:
+   https://www.opengraph.xyz/  (colem a URL de vocês e vejam como fica)
+
+Qualquer ferramenta de cache de link (WhatsApp principalmente) demora
+para atualizar o preview antigo. Se não mudar na hora, é isso — é cache
+deles, não erro de vocês.

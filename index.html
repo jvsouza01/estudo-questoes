@@ -3,25 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EstudoQ - Controle e Histórico de Questões</title>
-  <meta name="description" content="Aplicativo prático para registro de acertos/erros em baterias de questões com estatísticas detalhadas por dia, semana e mês.">
+  <title>Trajetória Questões - Controle Inteligente de Estudos</title>
+  <meta name="description" content="A infraestrutura tecnológica para acompanhamento em tempo real de baterias de questões, estatísticas e evolução de estudos.">
   
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="alternate icon" href="favicon.svg" type="image/x-icon">
-  <link rel="apple-touch-icon" href="favicon.svg">
+  <!-- Favicons Oficiais Trajetória -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  
+  <!-- OpenGraph / Social Sharing -->
+  <meta property="og:title" content="Trajetória Questões">
+  <meta property="og:description" content="A infraestrutura tecnológica por trás das mentorias e estudantes que mais aprovam.">
+  <meta property="og:image" content="og-image.png">
+  <meta property="og:url" content="https://trajetoria.app.br">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="og-image.png">
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0b0f19">
+  <meta name="theme-color" content="#09090b">
   
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
@@ -31,12 +40,12 @@
     <!-- Header -->
     <header class="app-header">
       <div class="logo-area">
-        <div class="logo-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        </div>
+        <a href="https://trajetoria.app.br" target="_blank" rel="noopener" class="logo-link" title="Trajetória">
+          <img src="icon_master_black.png" alt="Trajetória Logo" class="trajetoria-logo-img">
+        </a>
         <div>
-          <h1>Estudo<span class="highlight">Q</span></h1>
-          <p class="subtitle">Controle Inteligente de Questões</p>
+          <h1>Trajetória <span class="highlight">Questões</span></h1>
+          <p class="subtitle">Infraestrutura de Alta Performance para Estudos</p>
         </div>
       </div>
 
@@ -62,8 +71,11 @@
         <!-- STEP 1: FORMULÁRIO DE INÍCIO -->
         <div id="setup-card" class="card setup-card">
           <div class="card-header">
+            <div class="badge-pill-container">
+              <span class="badge-pill"><span class="badge-dot"></span> Infraestrutura de Alta Performance</span>
+            </div>
             <h2>Iniciar Bateria de Questões</h2>
-            <p>Informe a matéria e o assunto para começar o acompanhamento em tempo real.</p>
+            <p>Informe a matéria e o assunto para começar o acompanhamento e análise em tempo real.</p>
           </div>
           <form id="start-form" onsubmit="handleStartSession(event)">
             <div class="form-grid">

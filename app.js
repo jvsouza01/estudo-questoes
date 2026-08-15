@@ -896,3 +896,18 @@ function escapeHtml(str) {
     }[m];
   });
 }
+
+// Legal Modals Handlers
+function openPrivacyModal() {
+  document.getElementById('privacy-modal').classList.remove('hidden');
+}
+function closePrivacyModal() {
+  document.getElementById('privacy-modal').classList.add('hidden');
+}
+function openTermsModal() {
+  document.getElementById('terms-modal').classList.remove('hidden');
+}
+function closeTermsModal() {
+  document.getElementById('terms-modal').classList.add('hidden');
+}
+

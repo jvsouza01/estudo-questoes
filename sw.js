@@ -1,4 +1,4 @@
-const CACHE_NAME = 'estudoq-v4';
+const CACHE_NAME = 'estudoq-v5';
 const ASSETS = [
   './',
   './index.html',

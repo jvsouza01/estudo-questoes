@@ -299,6 +299,40 @@
 
     </main>
 
+    <!-- AdSense & Institutional Footer -->
+    <footer class="app-footer card">
+      <!-- Container para Anúncio AdSense -->
+      <div class="ad-banner-container" id="adsense-banner">
+        <span class="ad-label">Publicidade</span>
+        <div class="ad-placeholder">
+          <!-- O script do Google AdSense é inserido aqui -->
+          <p class="ad-placeholder-text">Espaço Reservado para Anúncios do Google AdSense</p>
+        </div>
+      </div>
+
+      <!-- Texto Explicativo para Aprovação do AdSense / SEO -->
+      <div class="footer-educational-content">
+        <h3>Como Funciona o Estudo por Questões?</h3>
+        <p>
+          O estudo ativo por meio da resolução de questões é comprovadamente a técnica mais eficiente para retenção de conteúdo a longo prazo. 
+          O <strong>EstudoQ</strong> (by <strong>Trajetória</strong>) foi desenvolvido para que você acompanhe o seu rendimento percentual em tempo real durante os seus estudos, 
+          permitindo identificar rapidamente quais matérias e assuntos necessitam de maior revisão teórica.
+        </p>
+      </div>
+
+      <!-- Links Institucionais e Direitos -->
+      <div class="footer-bottom-bar">
+        <div class="footer-brand">
+          <span>&copy; 2026 <strong>Trajetória</strong> (<a href="https://trajetoria.app.br" target="_blank" rel="noopener">trajetoria.app.br</a>) - Todos os direitos reservados.</span>
+        </div>
+        <div class="footer-links">
+          <button type="button" class="footer-link-btn" onclick="openPrivacyModal()">Política de Privacidade</button>
+          <span class="dot-sep">•</span>
+          <button type="button" class="footer-link-btn" onclick="openTermsModal()">Termos de Uso</button>
+        </div>
+      </div>
+    </footer>
+
     <!-- MODAL DE RESUMO AO FINALIZAR BATERIA -->
     <div id="summary-modal" class="modal-overlay hidden">
       <div class="modal-card">
@@ -343,6 +377,48 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" onclick="closeModalAndNewSession()">Nova Bateria</button>
           <button class="btn btn-primary" onclick="closeModalAndGoHistory()">Ver Histórico Completo</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE POLÍTICA DE PRIVACIDADE -->
+    <div id="privacy-modal" class="modal-overlay hidden">
+      <div class="modal-card legal-modal-card">
+        <div class="modal-header">
+          <h2>Política de Privacidade</h2>
+          <p>Transparência sobre o uso de dados no EstudoQ</p>
+        </div>
+        <div class="modal-body legal-modal-body">
+          <p>A sua privacidade é fundamental para nós da <strong>Trajetória</strong> (trajetoria.app.br).</p>
+          <h4>1. Armazenamento Local de Dados</h4>
+          <p>O EstudoQ salva todas as suas contagens de acertos, erros, matérias e assuntos exclusivamente no armazenamento local (<em>localStorage</em>) do seu próprio navegador. Nenhum dado de estudo é transmitido ou vendido para servidores externos.</p>
+          <h4>2. Cookies e Anúncios (Google AdSense)</h4>
+          <p>Utilizamos o Google AdSense para exibir anúncios relevantes. O Google pode utilizar cookies para veicular anúncios com base nas suas visitas anteriores a este ou a outros websites.</p>
+          <h4>3. Seus Direitos</h4>
+          <p>Você pode a qualquer momento exportar, limpar ou excluir todos os seus dados locais através dos botões de gerenciamento na aba de Histórico.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary btn-lg" onclick="closePrivacyModal()">Entendi e Concordo</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE TERMOS DE USO -->
+    <div id="terms-modal" class="modal-overlay hidden">
+      <div class="modal-card legal-modal-card">
+        <div class="modal-header">
+          <h2>Termos de Uso</h2>
+          <p>Condições gerais para utilização da aplicação</p>
+        </div>
+        <div class="modal-body legal-modal-body">
+          <p>Ao utilizar o <strong>EstudoQ</strong> (integrante do ecossistema <strong>trajetoria.app.br</strong>), você concorda com os seguintes termos:</p>
+          <h4>1. Uso Gratuito</h4>
+          <p>A ferramenta é disponibilizada gratuitamente para acompanhamento pessoal de baterias de estudos e resolução de questões.</p>
+          <h4>2. Isenção de Responsabilidade</h4>
+          <p>Como os dados são mantidos localmente no seu dispositivo, a preservação do histórico depende do próprio armazenamento do seu navegador. Recomendamos a realização periódica de backups pelo botão de exportação JSON.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary btn-lg" onclick="closeTermsModal()">Fechar</button>
         </div>
       </div>
     </div>

@@ -337,6 +337,36 @@ body {
   box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
 }
 
+.form-actions-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 640px) {
+  .form-actions-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btn-floating-glow {
+  background: linear-gradient(135deg, #0284c7, #6366f1) !important;
+  color: #fff !important;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.45) !important;
+  border: 1px solid var(--border-highlight) !important;
+}
+
+.btn-floating-start {
+  background: rgba(56, 189, 248, 0.12) !important;
+  border: 1px solid var(--border-highlight) !important;
+  color: var(--primary) !important;
+}
+
+.btn-floating-start:hover {
+  background: rgba(56, 189, 248, 0.22) !important;
+  color: #fff !important;
+}
+
 .btn-secondary {
   background: rgba(255, 255, 255, 0.08);
   color: var(--text-main);

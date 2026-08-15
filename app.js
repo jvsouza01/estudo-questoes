@@ -27,8 +27,21 @@ document.addEventListener('DOMContentLoaded', () => {
 // Register Service Worker for PWA
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+      if ('caches' in window) {
+        caches.keys().then(names => {
+          for (let name of names) caches.delete(name);
+        });
+      }
+      return;
+    }
     navigator.serviceWorker.register('./sw.js').catch(err => {
-      console.log('Service Worker registro ignorado ou ambiente local sem HTTPS/HTTP:', err);
+      console.log('Service Worker registro ignorado:', err);
     });
   }
 }
@@ -125,6 +138,24 @@ function handleStartSession(event) {
 
   // Add Subject to recent list
   addRecentSubject(subject);
+}
+
+// Handle Direct Start in Floating Mode
+function handleStartFloatingSession(event) {
+  if (event) event.preventDefault();
+  
+  const subjectInput = document.getElementById('input-subject');
+  const topicInput = document.getElementById('input-topic');
+
+  if (!subjectInput.value.trim() || !topicInput.value.trim()) {
+    subjectInput.reportValidity();
+    return;
+  }
+
+  handleStartSession(event);
+  if (activeSession) {
+    toggleFloatingWidget();
+  }
 }
 
 // Record Answer (Acerto or Erro)

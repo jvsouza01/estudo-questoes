@@ -13,8 +13,11 @@ let activeSession = null;
 let currentFilterPeriod = 'today'; // 'today', 'week', 'month', 'all'
 let chartInstance = null;
 
+const STORAGE_KEY_THEME = 'trajetoria_theme';
+
 // Initialize App
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
   loadStorageData();
   setupKeyboardShortcuts();
   updateRecentSubjectsUI();
@@ -23,6 +26,46 @@ document.addEventListener('DOMContentLoaded', () => {
   // Default to session view
   switchTab('session');
 });
+
+// Theme Management (Dark / Light)
+function initTheme() {
+  const savedTheme = localStorage.getItem(STORAGE_KEY_THEME) || 'dark';
+  applyTheme(savedTheme);
+}
+
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  applyTheme(newTheme);
+  localStorage.setItem(STORAGE_KEY_THEME, newTheme);
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const sunIcon = document.getElementById('theme-icon-sun');
+  const moonIcon = document.getElementById('theme-icon-moon');
+  const themeLabel = document.getElementById('theme-text-label');
+
+  if (sunIcon && moonIcon) {
+    if (theme === 'light') {
+      sunIcon.classList.add('hidden');
+      moonIcon.classList.remove('hidden');
+      if (themeLabel) themeLabel.textContent = 'Modo Escuro';
+    } else {
+      sunIcon.classList.remove('hidden');
+      moonIcon.classList.add('hidden');
+      if (themeLabel) themeLabel.textContent = 'Modo Claro';
+    }
+  }
+
+  // Update chart theme colors if chart is rendered
+  if (chartInstance) {
+    const activeTab = document.getElementById('tab-history');
+    if (activeTab && activeTab.classList.contains('active')) {
+      updateHistoryView();
+    }
+  }
+}
 
 // Register Service Worker for PWA
 function registerServiceWorker() {
@@ -270,6 +313,9 @@ async function toggleFloatingWidget() {
       [...document.querySelectorAll('link[rel="stylesheet"], style')].forEach((styleNode) => {
         pipWindowInstance.document.head.appendChild(styleNode.cloneNode(true));
       });
+
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      pipWindowInstance.document.documentElement.setAttribute('data-theme', currentTheme);
 
       const total = activeSession.correct + activeSession.wrong;
       const accuracyRate = total > 0 ? Math.round((activeSession.correct / total) * 100) : 0;
@@ -732,6 +778,12 @@ function renderChart(filteredSessions) {
   const correctData = labels.map(l => dateMap[l].correct);
   const accuracyData = labels.map(l => Math.round((dateMap[l].correct / dateMap[l].total) * 100));
 
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const textColor = isLight ? '#475569' : '#94a3b8';
+  const gridColor = isLight ? 'rgba(0, 0, 0, 0.06)' : 'rgba(255, 255, 255, 0.05)';
+  const totalBg = isLight ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.12)';
+  const totalBorder = isLight ? 'rgba(0, 0, 0, 0.18)' : 'rgba(255, 255, 255, 0.25)';
+
   chartInstance = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -746,8 +798,8 @@ function renderChart(filteredSessions) {
         {
           label: 'Total Feito',
           data: totalData,
-          backgroundColor: 'rgba(255, 255, 255, 0.12)',
-          borderColor: 'rgba(255, 255, 255, 0.25)',
+          backgroundColor: totalBg,
+          borderColor: totalBorder,
           borderWidth: 1,
           borderRadius: 6,
         }
@@ -758,7 +810,7 @@ function renderChart(filteredSessions) {
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          labels: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans', size: 12 } }
+          labels: { color: textColor, font: { family: 'Plus Jakarta Sans', size: 12 } }
         },
         tooltip: {
           callbacks: {
@@ -771,12 +823,12 @@ function renderChart(filteredSessions) {
       },
       scales: {
         x: {
-          ticks: { color: '#64748b' },
-          grid: { color: 'rgba(255, 255, 255, 0.05)' }
+          ticks: { color: textColor },
+          grid: { color: gridColor }
         },
         y: {
-          ticks: { color: '#64748b' },
-          grid: { color: 'rgba(255, 255, 255, 0.05)' },
+          ticks: { color: textColor },
+          grid: { color: gridColor },
           beginAtZero: true
         }
       }

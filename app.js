@@ -15,9 +15,11 @@ let chartInstance = null;
 
 const STORAGE_KEY_THEME = 'trajetoria_theme';
 
+// Initialize Theme Immediately to prevent flash
+initTheme();
+
 // Initialize App
 document.addEventListener('DOMContentLoaded', () => {
-  initTheme();
   loadStorageData();
   setupKeyboardShortcuts();
   updateRecentSubjectsUI();
@@ -39,6 +41,9 @@ function toggleTheme() {
   applyTheme(newTheme);
   localStorage.setItem(STORAGE_KEY_THEME, newTheme);
 }
+
+// Expose globally to window
+window.toggleTheme = toggleTheme;
 
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);

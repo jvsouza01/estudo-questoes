@@ -1,4 +1,4 @@
-const CACHE_NAME = 'trajetoria-questoes-v1';
+const CACHE_NAME = 'trajetoria-lite-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -35,12 +35,16 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// Network First strategy so updates take effect immediately
+// Network First strategy
 self.addEventListener('fetch', (e) => {
+  // Ignore non-http/https requests (e.g. chrome-extension://)
+  if (!e.request.url.startsWith('http')) {
+    return;
+  }
+
   e.respondWith(
     fetch(e.request)
       .then((response) => {
-        // Clone and store updated response in cache
         if (response && response.status === 200 && response.type === 'basic') {
           const responseToCache = response.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(e.request, responseToCache));

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trajetória Questões - Controle Inteligente de Estudos</title>
-  <meta name="description" content="A infraestrutura tecnológica para acompanhamento em tempo real de baterias de questões, estatísticas e evolução de estudos.">
+  <title>Trajetória Lite - Controle Ágil de Questões</title>
+  <meta name="description" content="A versão essencial e gratuita da Trajetória para acompanhamento ágil de baterias de questões em tempo real.">
   
   <!-- Favicons Oficiais Trajetória -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -13,8 +13,8 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   
   <!-- OpenGraph / Social Sharing -->
-  <meta property="og:title" content="Trajetória Questões">
-  <meta property="og:description" content="A infraestrutura tecnológica por trás das mentorias e estudantes que mais aprovam.">
+  <meta property="og:title" content="Trajetória Lite">
+  <meta property="og:description" content="Registro ágil e essencial de acertos e erros de baterias de estudo.">
   <meta property="og:image" content="og-image.png">
   <meta property="og:url" content="https://trajetoria.app.br">
   <meta name="twitter:card" content="summary_large_image">
@@ -36,30 +36,49 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app-container">
-    <!-- Header -->
-    <header class="app-header">
+  <div class="page-layout-wrapper">
+    
+    <!-- Barra Lateral Esquerda para Anúncio (Skyscraper 160x600) -->
+    <aside class="sidebar-ad-container sidebar-left">
+      <span class="ad-label">Publicidade</span>
+      <div class="sidebar-ad-box">
+        <p class="ad-placeholder-text">Espaço Anúncio Lateral (160x600)</p>
+      </div>
+    </aside>
+
+    <!-- Container Principal da Aplicação -->
+    <div class="app-container">
+      <!-- Header -->
+      <header class="app-header">
       <div class="logo-area">
         <a href="https://trajetoria.app.br" target="_blank" rel="noopener" class="logo-link" title="Trajetória">
           <img src="icon_master_black.png" alt="Trajetória Logo" class="trajetoria-logo-img">
         </a>
         <div>
-          <h1>Trajetória <span class="highlight">Questões</span></h1>
-          <p class="subtitle">Infraestrutura de Alta Performance para Estudos</p>
+          <h1>Trajetória <span class="highlight">Lite</span></h1>
+          <p class="subtitle">Registro ágil de baterias de questões • By Trajetória</p>
         </div>
       </div>
 
-      <!-- Navigation Tabs -->
-      <nav class="nav-tabs" role="tablist">
-        <button id="tab-btn-session" class="tab-btn active" onclick="switchTab('session')" role="tab" aria-selected="true">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          <span>Nova Bateria</span>
+      <!-- Navigation Tabs & CTA -->
+      <div class="header-right-group">
+        <nav class="nav-tabs" role="tablist">
+          <button id="tab-btn-session" class="tab-btn active" onclick="switchTab('session')" role="tab" aria-selected="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>Nova Bateria</span>
+          </button>
+          <button id="tab-btn-history" class="tab-btn" onclick="switchTab('history')" role="tab" aria-selected="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>
+            <span>Histórico & Analytics</span>
+          </button>
+        </nav>
+        <a href="https://trajetoria.app.br" target="_blank" rel="noopener" class="btn btn-outline btn-sm btn-platform-cta" title="Conhecer a plataforma completa Trajetória">
+          <span>Plataforma Completa ➔</span>
+        </a>
+        <button type="button" class="btn btn-sm btn-pix-donate" onclick="openPixModal()" title="Apoie o desenvolvedor via PIX com qualquer valor simbólico">
+          <span>☕ Apoiar o Desenvolvedor</span>
         </button>
-        <button id="tab-btn-history" class="tab-btn" onclick="switchTab('history')" role="tab" aria-selected="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>
-          <span>Histórico & Analytics</span>
-        </button>
-      </nav>
+      </div>
     </header>
 
     <!-- MAIN CONTENT AREA -->
@@ -72,7 +91,7 @@
         <div id="setup-card" class="card setup-card">
           <div class="card-header">
             <div class="badge-pill-container">
-              <span class="badge-pill"><span class="badge-dot"></span> Infraestrutura de Alta Performance</span>
+              <span class="badge-pill"><span class="badge-dot"></span> Versão Essencial • Para métricas avançadas conheça a plataforma</span>
             </div>
             <h2>Iniciar Bateria de Questões</h2>
             <p>Informe a matéria e o assunto para começar o acompanhamento e análise em tempo real.</p>
@@ -333,7 +352,7 @@
         <h3>Como Funciona o Estudo por Questões?</h3>
         <p>
           O estudo ativo por meio da resolução de questões é comprovadamente a técnica mais eficiente para retenção de conteúdo a longo prazo. 
-          O <strong>EstudoQ</strong> (by <strong>Trajetória</strong>) foi desenvolvido para que você acompanhe o seu rendimento percentual em tempo real durante os seus estudos, 
+          O <strong>Trajetória Lite</strong> (versão essencial gratuita da <strong>Trajetória</strong>) foi desenvolvido para que você acompanhe o seu rendimento percentual em tempo real durante os seus estudos, 
           permitindo identificar rapidamente quais matérias e assuntos necessitam de maior revisão teórica.
         </p>
       </div>
@@ -341,7 +360,7 @@
       <!-- Links Institucionais e Direitos -->
       <div class="footer-bottom-bar">
         <div class="footer-brand">
-          <span>&copy; 2026 <strong>Trajetória</strong> (<a href="https://trajetoria.app.br" target="_blank" rel="noopener">trajetoria.app.br</a>) - Todos os direitos reservados.</span>
+          <span>&copy; 2026 <strong>Trajetória Lite</strong> by <a href="https://trajetoria.app.br" target="_blank" rel="noopener">Trajetória</a> - Todos os direitos reservados.</span>
         </div>
         <div class="footer-links">
           <button type="button" class="footer-link-btn" onclick="openPrivacyModal()">Política de Privacidade</button>
@@ -404,12 +423,12 @@
       <div class="modal-card legal-modal-card">
         <div class="modal-header">
           <h2>Política de Privacidade</h2>
-          <p>Transparência sobre o uso de dados no EstudoQ</p>
+          <p>Transparência sobre o uso de dados no Trajetória Questões</p>
         </div>
         <div class="modal-body legal-modal-body">
           <p>A sua privacidade é fundamental para nós da <strong>Trajetória</strong> (trajetoria.app.br).</p>
           <h4>1. Armazenamento Local de Dados</h4>
-          <p>O EstudoQ salva todas as suas contagens de acertos, erros, matérias e assuntos exclusivamente no armazenamento local (<em>localStorage</em>) do seu próprio navegador. Nenhum dado de estudo é transmitido ou vendido para servidores externos.</p>
+          <p>O Trajetória Questões salva todas as suas contagens de acertos, erros, matérias e assuntos exclusivamente no armazenamento local (<em>localStorage</em>) do seu próprio navegador. Nenhum dado de estudo é transmitido ou vendido para servidores externos.</p>
           <h4>2. Cookies e Anúncios (Google AdSense)</h4>
           <p>Utilizamos o Google AdSense para exibir anúncios relevantes. O Google pode utilizar cookies para veicular anúncios com base nas suas visitas anteriores a este ou a outros websites.</p>
           <h4>3. Seus Direitos</h4>
@@ -429,7 +448,7 @@
           <p>Condições gerais para utilização da aplicação</p>
         </div>
         <div class="modal-body legal-modal-body">
-          <p>Ao utilizar o <strong>EstudoQ</strong> (integrante do ecossistema <strong>trajetoria.app.br</strong>), você concorda com os seguintes termos:</p>
+          <p>Ao utilizar o <strong>Trajetória Lite</strong> (integrante do ecossistema <strong>trajetoria.app.br</strong>), você concorda com os seguintes termos:</p>
           <h4>1. Uso Gratuito</h4>
           <p>A ferramenta é disponibilizada gratuitamente para acompanhamento pessoal de baterias de estudos e resolução de questões.</p>
           <h4>2. Isenção de Responsabilidade</h4>
@@ -441,7 +460,57 @@
       </div>
     </div>
 
-  </div>
+    <!-- MODAL DE APOIO PIX (AJUDE O DESENVOLVEDOR) -->
+    <div id="pix-modal" class="modal-overlay hidden">
+      <div class="modal-card pix-modal-card">
+        <div class="modal-header">
+          <div class="modal-pix-icon">☕</div>
+          <h2>Ajude o Desenvolvedor</h2>
+          <p>O <strong>Trajetória Lite</strong> é 100% gratuito. Se a ferramenta tem te ajudado nos estudos diários, você pode apoiar o projeto com <strong>qualquer valor simbólico</strong> via PIX!</p>
+        </div>
+
+        <div class="modal-body pix-modal-body">
+          <!-- QR Code Box Oficial PIX -->
+          <div class="pix-qrcode-container">
+            <img id="pix-qrcode-img" src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=00020126580014BR.GOV.BCB.PIX0136532264dc-c4e7-45a3-9a90-dfcab44d054a5204000053039865802BR5925Joao%20Vithor%20Souza%20Lima%20do6009SAO%20PAULO621405108m4qcPdT4v63040286" alt="QR Code PIX Oficial" class="pix-qrcode-img">
+            <span class="pix-scan-hint">Aponte a câmera do celular ou abra o app do seu banco</span>
+          </div>
+
+          <!-- Chave PIX Copia e Cola Oficial -->
+          <div class="pix-key-box">
+            <span class="pix-key-label">Código PIX Copia e Cola:</span>
+            <div class="pix-input-group">
+              <input type="text" id="pix-key-input" value="00020126580014BR.GOV.BCB.PIX0136532264dc-c4e7-45a3-9a90-dfcab44d054a5204000053039865802BR5925Joao Vithor Souza Lima do6009SAO PAULO621405108m4qcPdT4v63040286" readonly>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-copy-pix" onclick="copyPixKey()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span id="btn-copy-pix-text">Copiar</span>
+              </button>
+            </div>
+            <div class="pix-simple-key">
+              <span class="pix-simple-label">Chave aleatória:</span>
+              <code id="pix-raw-key">532264dc-c4e7-45a3-9a90-dfcab44d054a</code>
+              <button type="button" class="btn-copy-link" onclick="copyRawKey()">copiar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary btn-lg" onclick="closePixModal()">Voltar aos Estudos</button>
+        </div>
+      </div>
+    </div>
+
+    </div> <!-- Fim de .app-container -->
+
+    <!-- Barra Lateral Direita para Anúncio (Skyscraper 160x600) -->
+    <aside class="sidebar-ad-container sidebar-right">
+      <span class="ad-label">Publicidade</span>
+      <div class="sidebar-ad-box">
+        <p class="ad-placeholder-text">Espaço Anúncio Lateral (160x600)</p>
+      </div>
+    </aside>
+
+  </div> <!-- Fim de .page-layout-wrapper -->
 
   <script src="app.js"></script>
 </body>

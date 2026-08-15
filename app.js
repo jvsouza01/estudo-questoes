@@ -801,7 +801,7 @@ function exportDataJSON() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `estudoq_backup_${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `trajetoria_lite_backup_${new Date().toISOString().slice(0, 10)}.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -883,7 +883,7 @@ function exportDataCSV() {
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement('a');
   link.setAttribute('href', encodedUri);
-  link.setAttribute('download', `estudoq_historico_${new Date().toISOString().slice(0, 10)}.csv`);
+  link.setAttribute('download', `trajetoria_lite_historico_${new Date().toISOString().slice(0, 10)}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -940,5 +940,44 @@ function openTermsModal() {
 }
 function closeTermsModal() {
   document.getElementById('terms-modal').classList.add('hidden');
+}
+
+// PIX Donation Modal Handlers
+function openPixModal() {
+  document.getElementById('pix-modal').classList.remove('hidden');
+}
+function closePixModal() {
+  document.getElementById('pix-modal').classList.add('hidden');
+}
+
+// Copy PIX Key with visual feedback
+function copyPixKey() {
+  const pixInput = document.getElementById('pix-key-input');
+  if (!pixInput) return;
+
+  navigator.clipboard.writeText(pixInput.value).then(() => {
+    const copyBtnText = document.getElementById('btn-copy-pix-text');
+    if (copyBtnText) {
+      copyBtnText.textContent = 'Copiado! 🎉';
+      setTimeout(() => {
+        copyBtnText.textContent = 'Copiar';
+      }, 2500);
+    }
+  }).catch(err => {
+    // Fallback select
+    pixInput.select();
+    document.execCommand('copy');
+    alert('Código PIX copiado!');
+  });
+}
+
+// Copy Raw Random Key
+function copyRawKey() {
+  const rawKey = '532264dc-c4e7-45a3-9a90-dfcab44d054a';
+  navigator.clipboard.writeText(rawKey).then(() => {
+    alert('Chave aleatória copiada com sucesso!');
+  }).catch(() => {
+    prompt('Copie a chave aleatória abaixo:', rawKey);
+  });
 }
 
